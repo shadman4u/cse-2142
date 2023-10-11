@@ -61,7 +61,7 @@ public class StudentList {
 						new FileWriter("students.txt", true));
 				String argValue = args[0].substring(1);
 				Date date = new Date();
-				String dateFormat = "dd/mm/yyyy-hh:mm:ss a";
+				String dateFormateObj = "dd/mm/yyyy-hh:mm:ss a";
 				DateFormat dateFormat = new SimpleDateFormat(dateFormateObj);
 				String formateDate = dateFormat.format(date);
 				filestream.write(", " + argValue + "\nList last updated on " + formateDate);
@@ -79,19 +79,23 @@ public class StudentList {
 			System.out.println("Loading data ...");
 
 			try {
+
 				BufferedReader filestream = new BufferedReader(
 						new InputStreamReader(
 								new FileInputStream("students.txt")));
 				String reader = filestream.readLine();
 				String words[] = reader.split(",");
-				boolean done = false;
+				// boolean done = false;
 				String argValue = args[0].substring(1);
-				for (int idx = 0; idx < words.length && !done; idx++) {
-					if (words[idx].equals(argValue)) {
-						System.out.println("We found it!");
-						done = true;
+
+				int indexLocation = -1;
+				for (int idx = 0; idx < words.length; idx++) {
+					if (words[idx].trim().equals(argValue)) {
+						indexLocation = idx;
+						break;
 					}
 				}
+
 			} catch (Exception e) {
 
 			}
